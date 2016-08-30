@@ -18,9 +18,7 @@ package org.gradle.plugins.ide.internal.tooling;
 
 import org.gradle.api.JavaVersion;
 import org.gradle.api.Project;
-import org.gradle.api.internal.composite.CompositeBuildIdeProjectResolver;
 import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.internal.service.ServiceRegistry;
 import org.gradle.plugins.ide.idea.IdeaPlugin;
 import org.gradle.plugins.ide.idea.model.Dependency;
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel;
@@ -57,13 +55,11 @@ import java.util.Set;
 
 public class IdeaModelBuilder implements ToolingModelBuilder {
     private final GradleProjectBuilder gradleProjectBuilder;
-    private final CompositeBuildIdeProjectResolver compositeProjectMapper;
 
     private boolean offlineDependencyResolution;
 
-    public IdeaModelBuilder(GradleProjectBuilder gradleProjectBuilder, ServiceRegistry services) {
+    public IdeaModelBuilder(GradleProjectBuilder gradleProjectBuilder) {
         this.gradleProjectBuilder = gradleProjectBuilder;
-        compositeProjectMapper = new CompositeBuildIdeProjectResolver(services);
     }
 
     @Override

@@ -20,11 +20,14 @@ import org.gradle.tooling.internal.protocol.DefaultIdeaModuleIdentifier;
 import org.gradle.tooling.model.idea.IdeaDependencyScope;
 import org.gradle.tooling.provider.model.internal.LegacyConsumerInterface;
 
+import java.io.File;
+
 @LegacyConsumerInterface("org.gradle.tooling.model.idea.IdeaModuleDependency")
 public class DefaultIdeaModuleDependency extends DefaultIdeaDependency {
     private final String dependencyModuleName;
     private IdeaDependencyScope scope;
     private DefaultIdeaModule dependencyModule;
+    private File projectDirectory;
     private boolean exported;
 
     public DefaultIdeaModuleDependency(String dependencyModuleName) {
@@ -40,8 +43,12 @@ public class DefaultIdeaModuleDependency extends DefaultIdeaDependency {
         return this;
     }
 
+    public String getDependencyModuleName() {
+        return dependencyModuleName;
+    }
+
     public DefaultIdeaModuleIdentifier getTarget() {
-        return new DefaultIdeaModuleIdentifier(dependencyModuleName);
+        return projectDirectory == null ? null : new DefaultIdeaModuleIdentifier(projectDirectory);
     }
 
     public DefaultIdeaModule getDependencyModule() {
@@ -49,7 +56,10 @@ public class DefaultIdeaModuleDependency extends DefaultIdeaDependency {
     }
 
     public DefaultIdeaModuleDependency setDependencyModule(DefaultIdeaModule dependencyModule) {
-        this.dependencyModule = dependencyModule;
+        if (dependencyModule != null) {
+            this.dependencyModule = dependencyModule;
+            this.projectDirectory = dependencyModule.getGradleProject().getProjectDirectory();
+        }
         return this;
     }
 
@@ -66,7 +76,7 @@ public class DefaultIdeaModuleDependency extends DefaultIdeaDependency {
     public String toString() {
         return "DefaultIdeaModuleDependency{"
                  + "scope='" + scope + '\''
-                 + ", dependencyModule name='" + dependencyModule.getName() + '\''
+                 + ", dependencyModule name='" + dependencyModuleName + '\''
                  + ", exported=" + exported
                  + '}';
     }

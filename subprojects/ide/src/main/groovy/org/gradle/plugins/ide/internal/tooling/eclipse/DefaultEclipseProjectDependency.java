@@ -15,17 +15,22 @@
  */
 package org.gradle.plugins.ide.internal.tooling.eclipse;
 
+import org.gradle.tooling.internal.protocol.eclipse.DefaultEclipseProjectIdentifier;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class DefaultEclipseProjectDependency extends DefaultEclipseDependency implements Serializable {
+    //for compatibility with incubating API in 2.14-3.0
+    private DefaultEclipseProjectIdentifier targetIdentifier;
     private final String path;
-
     private DefaultEclipseProject targetProject;
+
 
     public DefaultEclipseProjectDependency(String path, boolean exported, List<DefaultClasspathAttribute> attributes, List<DefaultAccessRule> accessRules) {
         super(exported, attributes, accessRules);
         this.targetProject = null;
+        this.targetIdentifier = null;
         this.path = path;
     }
 
@@ -33,8 +38,15 @@ public class DefaultEclipseProjectDependency extends DefaultEclipseDependency im
         return targetProject;
     }
 
+    public DefaultEclipseProjectIdentifier getTarget() {
+        return targetIdentifier;
+    }
+
     public void setTargetProject(DefaultEclipseProject targetProject) {
-        this.targetProject = targetProject;
+        if (targetProject != null) {
+            this.targetProject = targetProject;
+            this.targetIdentifier = targetProject.getIdentifier();
+        }
     }
 
     public String getPath() {

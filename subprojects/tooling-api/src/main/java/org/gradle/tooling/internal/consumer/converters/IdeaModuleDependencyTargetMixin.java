@@ -30,7 +30,7 @@ public class IdeaModuleDependencyTargetMixin {
     public DefaultIdeaModuleIdentifier getTarget() {
         if (ideaModuleDependency instanceof IdeaModuleDependency) {
             IdeaModuleDependency dependency = (IdeaModuleDependency) ideaModuleDependency;
-            return new DefaultIdeaModuleIdentifier(dependency.getDependencyModule().getGradleProject().getPath());
+            return new DefaultIdeaModuleIdentifier(dependency.getDependencyModule().getGradleProject().getProjectDirectory());
         }
         return null;
     }

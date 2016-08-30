@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package org.gradle.tooling.internal.protocol;
+package org.gradle.tooling.internal.protocol.eclipse;
 
 import com.google.common.base.Objects;
-import org.gradle.tooling.model.idea.IdeaModuleIdentifier;
 
 import java.io.File;
 import java.io.Serializable;
 
-public class DefaultIdeaModuleIdentifier implements IdeaModuleIdentifier, Serializable {
-    private final File identifier;
+/*
+ * Only used to keep the serialized form of DefaultEclipseProject the same.
+ */
+public class DefaultEclipseProjectIdentifier implements Serializable {
+    private final File projectDirectory;
 
-    public DefaultIdeaModuleIdentifier(File identifier) {
-        this.identifier = identifier;
+    public DefaultEclipseProjectIdentifier(File projectDirectory) {
+        this.projectDirectory = projectDirectory;
     }
 
     @Override
@@ -34,20 +36,15 @@ public class DefaultIdeaModuleIdentifier implements IdeaModuleIdentifier, Serial
         if (this == o) {
             return true;
         }
-        if (!(o instanceof DefaultIdeaModuleIdentifier)) {
+        if (!(o instanceof DefaultEclipseProjectIdentifier)) {
             return false;
         }
-        DefaultIdeaModuleIdentifier that = (DefaultIdeaModuleIdentifier) o;
-        return Objects.equal(identifier, that.identifier);
+        DefaultEclipseProjectIdentifier that = (DefaultEclipseProjectIdentifier) o;
+        return Objects.equal(projectDirectory, that.projectDirectory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(identifier);
-    }
-
-    @Override
-    public String toString() {
-        return identifier.getPath();
+        return Objects.hashCode(projectDirectory);
     }
 }

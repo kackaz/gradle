@@ -15,6 +15,7 @@
  */
 package org.gradle.tooling.model.eclipse;
 
+import org.gradle.api.Nullable;
 import org.gradle.tooling.model.ProjectDependency;
 
 /**
@@ -27,6 +28,7 @@ public interface EclipseProjectDependency extends ProjectDependency, EclipseClas
     * @return The target project, or null for a dependency on a different build within a composite.
     */
     @Deprecated
+    @Nullable
     HierarchicalEclipseProject getTargetProject();
 
     /**

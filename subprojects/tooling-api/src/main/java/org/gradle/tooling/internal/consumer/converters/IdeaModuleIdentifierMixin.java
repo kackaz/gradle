@@ -27,6 +27,6 @@ public class IdeaModuleIdentifierMixin {
     }
 
     public DefaultIdeaModuleIdentifier getIdentifier() {
-        return new DefaultIdeaModuleIdentifier(ideaModule.getGradleProject().getPath());
+        return new DefaultIdeaModuleIdentifier(ideaModule.getGradleProject().getProjectDirectory());
     }
 }

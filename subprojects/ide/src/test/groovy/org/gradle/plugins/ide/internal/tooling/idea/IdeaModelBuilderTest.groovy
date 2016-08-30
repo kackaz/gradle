@@ -298,7 +298,7 @@ class IdeaModelBuilderTest extends AbstractProjectBuilderSpec {
         def serviceRegistry = new DefaultServiceRegistry()
         serviceRegistry.add(LocalComponentRegistry, Stub(LocalComponentRegistry))
         serviceRegistry.add(CompositeBuildContext, Stub(CompositeBuildContext))
-        new IdeaModelBuilder(gradleProjectBuilder, serviceRegistry)
+        new IdeaModelBuilder(gradleProjectBuilder)
     }
 
     private DefaultIdeaProject buildIdeaProject(modelBuilder, project) {

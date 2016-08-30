@@ -26,14 +26,13 @@ import org.gradle.tooling.model.*;
  * @since 1.0-milestone-5
  */
 public interface IdeaModule extends HierarchicalElement, HasGradleProject {
+
     /**
-     * The unique identifier for this IDEA module.
-     *
-     * @return The unique identifier for this IDEA module.
-     * @since 2.14
+     * Returns the name of this module
+     * @return the name of this module
+     * @since 3.1
      */
-    @Incubating
-    IdeaModuleIdentifier getIdentifier();
+    String getName();
 
     /**
      * Returns the Java language settings for this element, or {@code null} if this element is not a Java element.

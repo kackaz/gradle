@@ -40,7 +40,7 @@ public class DefaultIdeaModule implements Serializable, GradleProjectIdentity {
     private DefaultIdeaJavaLanguageSettings javaLanguageSettings;
 
     public DefaultIdeaModuleIdentifier getIdentifier() {
-        return new DefaultIdeaModuleIdentifier(name);
+        return new DefaultIdeaModuleIdentifier(gradleProject.getProjectDirectory());
     }
 
     public String getName() {

@@ -18,6 +18,7 @@ package org.gradle.plugins.ide.internal.tooling.eclipse;
 import com.google.common.collect.Lists;
 import org.gradle.tooling.internal.gradle.DefaultGradleProject;
 import org.gradle.tooling.internal.gradle.GradleProjectIdentity;
+import org.gradle.tooling.internal.protocol.eclipse.DefaultEclipseProjectIdentifier;
 
 import java.io.File;
 import java.io.Serializable;
@@ -28,6 +29,8 @@ import java.util.List;
  * An implementation for {@link org.gradle.tooling.model.eclipse.EclipseProject}.
  */
 public class DefaultEclipseProject implements Serializable, GradleProjectIdentity {
+    //for compatibility with incubating API in 2.14-3.0
+    private final DefaultEclipseProjectIdentifier identifier;
     private final String name;
     private final String path;
     private DefaultEclipseProject parent;
@@ -47,6 +50,7 @@ public class DefaultEclipseProject implements Serializable, GradleProjectIdentit
     private DefaultEclipseOutputLocation outputLocation;
 
     public DefaultEclipseProject(String name, String path, String description, File projectDirectory, Iterable<? extends DefaultEclipseProject> children) {
+        this.identifier = new DefaultEclipseProjectIdentifier(projectDirectory);
         this.name = name;
         this.path = path;
         this.description = description;
@@ -64,6 +68,10 @@ public class DefaultEclipseProject implements Serializable, GradleProjectIdentit
     @Override
     public String toString() {
         return "project '" + path + "'";
+    }
+
+    public DefaultEclipseProjectIdentifier getIdentifier() {
+        return identifier;
     }
 
     @Override
